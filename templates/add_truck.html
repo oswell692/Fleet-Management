@@ -1,0 +1,39 @@
+{% extends 'homepage.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Add New Truck</h2>
+    <form method="POST">
+        <div class="mb-3">
+            <label for="truck_id" class="form-label">Truck ID</label>
+            <input type="text" class="form-control" id="truck_id" name="truck_id" required>
+        </div>
+        <div class="mb-3">
+            <label for="model" class="form-label">Model</label>
+            <input type="text" class="form-control" id="model" name="model" required>
+        </div>
+        <div class="mb-3">
+            <label for="make_year" class="form-label">Make Year</label>
+            <input type="number" class="form-control" id="make_year" name="make_year" min="1900" max="2099" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="capacity" class="form-label">Capacity</label>
+            <input type="text" class="form-control" id="capacity" name="capacity" required>
+        </div>
+        <div class="mb-3">
+            <label for="registration_number" class="form-label">Registration Number</label>
+            <input type="text" class="form-control" id="registration_number" name="registration_number" required>
+        </div>
+        <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select class="form-select" id="status" name="status" required>
+                <option value="Available">Available</option>
+                <option value="In Transit">In Transit</option>
+                <option value="Under Service">Under Service</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Truck</button>
+    </form>
+</div>
+{% endblock %}

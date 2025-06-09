@@ -1,0 +1,65 @@
+{% extends 'homepage.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Book a Truck</h2>
+    
+    <!-- Booking Form -->
+    <form method="POST" action="{{ url_for('booking_trucks') }}">
+        <div class="mb-3">
+            <label for="client_name" class="form-label">Client Name</label>
+            <input type="text" class="form-control" id="client_name" name="client_name" required>
+        </div>
+        <div class="mb-3">
+            <label for="job_description" class="form-label">Job Description</label>
+            <textarea class="form-control" id="job_description" name="job_description" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="booking_date" class="form-label">Booking Date</label>
+            <input type="date" class="form-control" id="booking_date" name="booking_date" required>
+        </div>
+        <div class="mb-3">
+            <label for="truck_id" class="form-label">Select Available Truck</label>
+            <select class="form-select" id="truck_id" name="truck_id" required>
+                {% for truck in available_trucks %}
+                    <option value="{{ truck[1] }}">{{ truck[1] }} - {{ truck[2] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success">Book Truck</button>
+    </form>
+
+    <!-- Booking History -->
+    <hr class="my-4">
+    <h4>Current & Past Bookings</h4>
+    <div class="table-responsive mt-3">
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Client</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Truck ID</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in bookings %}
+                    <tr>
+                        <td>{{ booking[2] }}</td>        {# client_name #}
+                        <td>{{ booking[3] }}</td>        {# job_description #}
+                        <td>{{ booking[4] }}</td>        {# booking_date #}
+                        <td>{{ booking[1] }}</td>        {# truck_id #}
+                        <td>
+                            <a href="{{ url_for('edit_booking', booking_id=booking[0]) }}" class="btn btn-sm btn-warning">Edit</a>
+                            <a href="{{ url_for('delete_booking', booking_id=booking[0]) }}" class="btn btn-sm btn-danger" onclick="return confirm('Delete this booking?');">Delete</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr><td colspan="5" class="text-center">No bookings yet.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

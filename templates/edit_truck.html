@@ -1,0 +1,39 @@
+{% extends 'homepage.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Edit Truck</h2>
+    <form method="POST">
+        <div class="mb-3">
+            <label class="form-label">Truck ID</label>
+            <input type="text" class="form-control" value="{{ truck[1] }}" disabled>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Model</label>
+            <input type="text" class="form-control" name="model" value="{{ truck[2] }}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Year Made</label>
+            <input type="text" class="form-control" name="year_made" value="{{ truck[6] }}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Capacity</label>
+            <input type="text" class="form-control" name="capacity" value="{{ truck[3] }}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Registration Number</label>
+            <input type="text" class="form-control" name="registration_number" value="{{ truck[4] }}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Status</label>
+            <select class="form-select" name="status" required>
+                <option value="Available" {% if truck[5] == 'Available' %}selected{% endif %}>Available</option>
+                <option value="In Transit" {% if truck[5] == 'In Transit' %}selected{% endif %}>In Transit</option>
+                <option value="Under Service" {% if truck[5] == 'Under Service' %}selected{% endif %}>Under Service</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Truck</button>
+        <a href="{{ url_for('manage_trucks') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

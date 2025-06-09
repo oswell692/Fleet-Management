@@ -1,0 +1,41 @@
+{% extends 'homepage.html' %}
+{% block content %}
+
+<h2>Truck Details - {{ truck[1] }}</h2>
+<ul class="list-group mb-4">
+    <li class="list-group-item"><strong>Model:</strong> {{ truck[2] }}</li>
+    <li class="list-group-item"><strong>Year Made:</strong> {{ truck[6] }}</li>
+    <li class="list-group-item"><strong>Capacity:</strong> {{ truck[3] }}</li>
+    <li class="list-group-item"><strong>Registration Number:</strong> {{ truck[4] }}</li>
+    <li class="list-group-item"><strong>Status:</strong> {{ truck[5] }}</li>
+</ul>
+
+<h3>Maintenance History</h3>
+{% if maintenance_records %}
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Resolved By</th>
+            <th>Cost</th>
+            <th>Next Service</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for record in maintenance_records %}
+        <tr>
+            <td>{{ record[0] }}</td>
+            <td>{{ record[1] }}</td>
+            <td>{{ record[2] }}</td>
+            <td>{{ record[3] or "N/A" }}</td>
+            <td>{{ record[4] or "N/A" }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No maintenance records found for this truck.</p>
+{% endif %}
+
+{% endblock %}

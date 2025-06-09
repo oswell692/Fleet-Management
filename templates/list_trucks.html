@@ -1,0 +1,26 @@
+{% extends "homepage.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4 text-primary">Truck List <small class="text-muted">({{ trucks|length }} total)</small></h2>
+    <ul class="list-group shadow-sm rounded">
+        {% for truck in trucks %}
+        <li class="list-group-item d-flex justify-content-between align-items-center truck-item">
+            <span>
+                <strong>{{ loop.index }}.</strong>
+                <a href="{{ url_for('truck_details', truck_id=truck[0]) }}" class="text-decoration-none text-dark">
+                    Truck ID: {{ truck[0] }} - Model: {{ truck[1] }}
+                </a>
+            </span>
+            <span class="badge bg-secondary rounded-pill">Details</span>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<style>
+.truck-item:hover {
+    background-color: #d4edda; /* Bootstrap's 'success' light green */
+    transition: background-color 0.3s ease;
+}
+</style>
+{% endblock %}

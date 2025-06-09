@@ -1,0 +1,39 @@
+{% extends 'homepage.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Edit Booking</h2>
+    <form method="POST">
+        <div class="mb-3">
+            <label for="client_name" class="form-label">Client Name</label>
+            <input type="text" class="form-control" id="client_name" name="client_name"
+                   value="{{ booking.client_name }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="job_description" class="form-label">Job Description</label>
+            <textarea class="form-control" id="job_description" name="job_description" rows="3" required>{{ booking.job_description }}</textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="booking_date" class="form-label">Booking Date</label>
+            <input type="date" class="form-control" id="booking_date" name="booking_date"
+                   value="{{ booking.booking_date.strftime('%Y-%m-%d') }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="truck_id" class="form-label">Select Truck</label>
+            <select class="form-select" id="truck_id" name="truck_id" required>
+                {% for truck in available_trucks %}
+                    <option value="{{ truck.truck_id }}"
+                        {% if truck.truck_id == booking.truck_id %}selected{% endif %}>
+                        {{ truck.truck_id }} - {{ truck.model }} ({{ truck.status }})
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update Booking</button>
+        <a href="{{ url_for('booking_trucks') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}
